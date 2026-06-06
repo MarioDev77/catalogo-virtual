@@ -58,4 +58,3 @@ Após iniciar, acesse:
 - `contentSecurityPolicy` desativado para permitir Google Fonts  
 - README com instruções claras de uso
 
-# catalogo-virtual

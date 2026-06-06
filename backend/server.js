@@ -34,8 +34,13 @@ app.use("/api", rateLimit({
 }));
 
 /* ─── Arquivos estáticos ─── */
-// Painel admin — rota COM e SEM trailing slash
-app.get("/admin", (req, res) => res.redirect("/admin/"));
+// Painel admin — serve o index.html diretamente para /admin e /admin/
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "admin", "index.html"));
+});
+app.get("/admin/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "admin", "index.html"));
+});
 app.use("/admin", express.static(path.join(__dirname, "public", "admin")));
 
 // Frontend do catálogo
@@ -51,10 +56,13 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, versao: "1.0.0", timestamp: new Date().toISOString() });
 });
 
-/* ─── SPA fallback: tudo que não é /api vai para o frontend ─── */
+/* ─── SPA fallback: tudo que não é /api ou /admin vai para o frontend ─── */
 app.use((req, res) => {
   if (req.path.startsWith("/api")) {
     return res.status(404).json({ ok: false, erro: "Rota não encontrada" });
+  }
+  if (req.path.startsWith("/admin")) {
+    return res.sendFile(path.join(__dirname, "public", "admin", "index.html"));
   }
   res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
 });

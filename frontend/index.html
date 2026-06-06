@@ -373,10 +373,11 @@ const API_BASE = IS_SERVER ? "" : null; // null = sem API, usa dados embutidos
 function abrirAdmin(e) {
   e.preventDefault();
   const port = location.port;
-  // Se está no Live Server (porta 5500/5501) ou file://, redireciona para porta 3000
-  const adminPort = (port === '5500' || port === '5501' || !port || location.protocol === 'file:') ? '3000' : port;
-  const adminUrl = `http://${location.hostname}:${adminPort}/admin/`;
-  window.open(adminUrl, '_blank');
+  if (port === '5500' || port === '5501' || location.protocol === 'file:') {
+    window.open('http://localhost:3000/admin/', '_blank');
+  } else {
+    window.open(location.origin + '/admin/', '_blank');
+  }
 }
 
 function getWhatsAppLink(msg = "") {

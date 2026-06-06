@@ -29,175 +29,268 @@
     a{color:inherit;text-decoration:none}
 
     /* ===== TOPBAR ===== */
-    .topbar{position:sticky;top:0;z-index:100;background:rgba(14,13,11,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
-    .topbar-inner{max-width:1320px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px}
-    .brand{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;letter-spacing:.32em;text-transform:uppercase}
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(14,13,11,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1320px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:20px;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap}
     .brand span{color:var(--gold)}
-    .nav{display:flex;gap:28px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);align-items:center}
+    .nav{display:flex;gap:24px;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);align-items:center;flex-wrap:wrap}
     .nav a{transition:color .25s}.nav a:hover{color:var(--gold-soft)}
-    .btn-adm{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:7px 14px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-dim);background:transparent;cursor:pointer;transition:border-color .25s,color .25s,background .25s;white-space:nowrap;text-decoration:none}
+    .btn-adm{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:7px 14px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-dim);background:transparent;cursor:pointer;transition:border-color .25s,color .25s,background .25s;white-space:nowrap;text-decoration:none;min-height:36px;-webkit-tap-highlight-color:transparent}
     .btn-adm:hover{border-color:var(--gold);color:var(--gold);background:rgba(191,155,48,.07)}
     .btn-adm svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
-    @media(max-width:720px){.nav{display:none}}
+
+    /* Mobile nav toggle */
+    .nav-toggle{display:none;background:transparent;border:1px solid var(--line);color:var(--ink-dim);padding:8px 10px;cursor:pointer;font-size:18px;line-height:1;-webkit-tap-highlight-color:transparent;min-height:36px;align-items:center;justify-content:center}
+    .nav-toggle:active{background:var(--gold-glow)}
+
+    /* Mobile drawer */
+    .mobile-drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:var(--bg-soft);z-index:200;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,.97,.52,1.07);border-left:1px solid var(--line);flex-direction:column;padding:24px 20px;gap:0}
+    .mobile-drawer.open{transform:translateX(0)}
+    .drawer-close{align-self:flex-end;background:transparent;border:1px solid var(--line);color:var(--ink-dim);font-size:22px;padding:8px 12px;cursor:pointer;margin-bottom:32px;-webkit-tap-highlight-color:transparent}
+    .drawer-close:active{background:var(--gold-glow)}
+    .drawer-nav{display:flex;flex-direction:column;gap:0}
+    .drawer-nav a{font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);padding:16px 0;border-bottom:1px solid var(--line);transition:color .25s;-webkit-tap-highlight-color:transparent}
+    .drawer-nav a:first-child{border-top:1px solid var(--line)}
+    .drawer-nav a:hover,.drawer-nav a:active{color:var(--gold-soft)}
+    .drawer-adm{margin-top:24px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:12px 18px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-dim);background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .drawer-adm svg{width:14px;height:14px;fill:currentColor}
+    .drawer-adm:active{background:var(--gold-glow);color:var(--gold)}
+
+    .drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:190;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .drawer-overlay.open{display:block}
+
+    @media(max-width:860px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .mobile-drawer{display:flex}
+    }
+    @media(max-width:480px){
+      .brand{font-size:17px;letter-spacing:.22em}
+    }
 
     /* ===== HERO ===== */
-    .hero{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px;overflow:hidden;border-bottom:1px solid var(--line)}
+    .hero{position:relative;min-height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;overflow:hidden;border-bottom:1px solid var(--line)}
     .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 20% 10%,rgba(191,155,48,.12),transparent 60%),radial-gradient(700px 500px at 80% 90%,rgba(191,155,48,.08),transparent 60%);pointer-events:none}
-    .hero .eyebrow{font-size:11px;letter-spacing:.6em;color:var(--gold);text-transform:uppercase;margin-bottom:28px}
-    .hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(44px,7vw,92px);line-height:1.02;letter-spacing:-.01em;max-width:940px;margin:0 auto}
+    .hero .eyebrow{font-size:10px;letter-spacing:.6em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(36px,8vw,92px);line-height:1.05;letter-spacing:-.01em;max-width:940px;margin:0 auto}
     .hero h1 em{font-style:italic;color:var(--gold-soft);font-weight:300}
-    .hero p{margin:32px auto 0;max-width:560px;color:var(--ink-dim);font-size:15px;line-height:1.7;font-weight:300}
-    .hr-orn{display:flex;align-items:center;justify-content:center;gap:18px;margin:42px 0 6px}
-    .hr-orn span{height:1px;width:60px;background:var(--gold);opacity:.55}
-    .hr-orn::before,.hr-orn::after{content:"";display:block;width:6px;height:6px;border:1px solid var(--gold);transform:rotate(45deg)}
+    .hero p{margin:28px auto 0;max-width:540px;color:var(--ink-dim);font-size:14px;line-height:1.75;font-weight:300;padding:0 8px}
+    .hr-orn{display:flex;align-items:center;justify-content:center;gap:18px;margin:36px 0 6px}
+    .hr-orn span{height:1px;width:50px;background:var(--gold);opacity:.55}
+    .hr-orn::before,.hr-orn::after{content:"";display:block;width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg)}
+    @media(max-width:480px){
+      .hero{min-height:60vh;padding:80px 20px 60px}
+      .hero p{font-size:13px}
+    }
 
     /* ===== SECTION ===== */
-    .section{max-width:1320px;margin:0 auto;padding:100px 28px 40px}
-    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:32px;border-bottom:1px solid var(--line);margin-bottom:56px}
-    .section-head h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(32px,4.4vw,54px);letter-spacing:-.01em}
+    .section{max-width:1320px;margin:0 auto;padding:80px 20px 40px}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:48px}
+    .section-head h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(28px,5vw,54px);letter-spacing:-.01em}
     .section-head h2 em{font-style:italic;color:var(--gold-soft);font-weight:300}
-    .section-head .meta{font-size:11px;letter-spacing:.4em;color:var(--ink-dim);text-transform:uppercase;text-align:right}
+    .section-head .meta{font-size:10px;letter-spacing:.35em;color:var(--ink-dim);text-transform:uppercase;text-align:right;white-space:nowrap}
+    @media(max-width:480px){
+      .section{padding:60px 16px 32px}
+      .section-head{margin-bottom:36px}
+      .section-head .meta{font-size:9px;letter-spacing:.25em}
+    }
 
     /* ===== GRID ===== */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 32px;align-items:stretch}
-    @media(max-width:1060px){.grid{grid-template-columns:repeat(2,1fr);gap:40px 24px}}
-    @media(max-width:600px){.grid{grid-template-columns:1fr;gap:44px}}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 28px;align-items:stretch}
+    @media(max-width:1060px){.grid{grid-template-columns:repeat(2,1fr);gap:40px 20px}}
+    @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);gap:28px 14px}}
+    @media(max-width:380px){.grid{grid-template-columns:1fr;gap:36px}}
 
     /* ===== CARD ===== */
     .card{position:relative;display:flex;flex-direction:column;gap:0;transition:transform .5s cubic-bezier(.22,.97,.52,1.07)}
-    .card:hover{transform:translateY(-6px)}
-    .card .frame{position:relative;overflow:hidden;background:var(--bg-card);border:1px solid var(--line);aspect-ratio:4/5;margin-bottom:20px;cursor:zoom-in}
+    @media(hover:hover){.card:hover{transform:translateY(-5px)}}
+
+    .card .frame{position:relative;overflow:hidden;background:var(--bg-card);border:1px solid var(--line);aspect-ratio:4/5;margin-bottom:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
     .card .frame img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1.2s ease,filter .6s ease;filter:saturate(.92) contrast(1.02)}
-    .card:hover .frame img{transform:scale(1.06)}
+    @media(hover:hover){.card:hover .frame img{transform:scale(1.06)}}
 
-    /* Overlay zoom hint */
-    .card .frame::after{content:"🔍";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;background:rgba(0,0,0,.45);opacity:0;transition:opacity .3s;pointer-events:none}
-    .card .frame:hover::after{opacity:1}
+    .card .frame::after{content:"🔍";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:rgba(0,0,0,.42);opacity:0;transition:opacity .3s;pointer-events:none}
+    @media(hover:hover){.card .frame:hover::after{opacity:1}}
 
-    .card .index{position:absolute;top:14px;left:16px;font-family:'Cormorant Garamond',serif;font-style:italic;color:#fff;font-size:14px;letter-spacing:.1em;z-index:2;mix-blend-mode:difference}
-    .card .badge{position:absolute;top:14px;right:14px;background:rgba(14,13,11,.82);border:1px solid var(--line);color:var(--gold-soft);font-size:9.5px;letter-spacing:.22em;padding:6px 11px;text-transform:uppercase;backdrop-filter:blur(4px);z-index:2}
-    
-    /* Botão de zoom no card */
-    .btn-zoom{position:absolute;bottom:14px;right:14px;z-index:3;background:rgba(14,13,11,.85);border:1px solid var(--line);color:var(--gold-soft);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:8px 14px;cursor:pointer;backdrop-filter:blur(8px);transition:background .25s,color .25s;display:flex;align-items:center;gap:6px}
+    .card .index{position:absolute;top:12px;left:14px;font-family:'Cormorant Garamond',serif;font-style:italic;color:#fff;font-size:13px;letter-spacing:.1em;z-index:2;mix-blend-mode:difference}
+    .card .badge{position:absolute;top:12px;right:12px;background:rgba(14,13,11,.82);border:1px solid var(--line);color:var(--gold-soft);font-size:9px;letter-spacing:.2em;padding:5px 9px;text-transform:uppercase;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:2}
+
+    /* Botão zoom — oculto em mobile (toque no card já abre) */
+    .btn-zoom{position:absolute;bottom:12px;right:12px;z-index:3;background:rgba(14,13,11,.88);border:1px solid var(--line);color:var(--gold-soft);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .25s,color .25s;display:flex;align-items:center;gap:5px;-webkit-tap-highlight-color:transparent}
     .btn-zoom:hover{background:rgba(191,155,48,.2);color:var(--gold)}
-    .btn-zoom svg{width:13px;height:13px;fill:currentColor}
+    .btn-zoom:active{background:rgba(191,155,48,.25)}
+    .btn-zoom svg{width:12px;height:12px;fill:currentColor}
+    @media(max-width:560px){.btn-zoom{padding:6px 10px;font-size:8.5px}}
 
-    /* Botão de compartilhar */
-    .btn-share{position:absolute;bottom:14px;left:14px;z-index:3;background:rgba(14,13,11,.85);border:1px solid var(--line);color:var(--ink-dim);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:8px 14px;cursor:pointer;backdrop-filter:blur(8px);transition:background .25s,color .25s;display:flex;align-items:center;gap:6px}
+    /* Botão compartilhar */
+    .btn-share{position:absolute;bottom:12px;left:12px;z-index:3;background:rgba(14,13,11,.88);border:1px solid var(--line);color:var(--ink-dim);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .25s,color .25s;display:flex;align-items:center;gap:5px;-webkit-tap-highlight-color:transparent}
     .btn-share:hover{background:rgba(255,255,255,.06);color:var(--ink)}
-    .btn-share svg{width:13px;height:13px;fill:currentColor}
+    .btn-share:active{background:rgba(255,255,255,.1)}
+    .btn-share svg{width:12px;height:12px;fill:currentColor}
+    @media(max-width:560px){
+      .btn-share{padding:6px 10px;font-size:8.5px}
+      /* Em telas muito pequenas, esconde o texto dos botões, mantém ícone */
+    }
+    @media(max-width:380px){
+      .btn-zoom span,.btn-share span{display:none}
+      .btn-zoom,.btn-share{padding:8px}
+    }
 
-    .card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;letter-spacing:.01em;line-height:1.2;margin-bottom:4px}
-    .card .sku{font-size:10.5px;letter-spacing:.32em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:14px}
-    .card .desc{color:var(--ink-dim);font-size:13px;font-weight:300;line-height:1.65;margin-bottom:14px;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-    .card .sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
-    .card .sizes span{font-size:10px;letter-spacing:.18em;color:var(--ink-dim);border:1px solid var(--line);padding:5px 9px}
-    .card .meta-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
-    .card .price{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold-soft);letter-spacing:.06em}
-    .card .cta{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--gold);padding-bottom:3px;transition:color .3s}
+    .card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:19px;letter-spacing:.01em;line-height:1.2;margin-bottom:3px}
+    .card .sku{font-size:10px;letter-spacing:.3em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:12px}
+    .card .desc{color:var(--ink-dim);font-size:12.5px;font-weight:300;line-height:1.65;margin-bottom:12px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .card .sizes{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+    .card .sizes span{font-size:9.5px;letter-spacing:.16em;color:var(--ink-dim);border:1px solid var(--line);padding:4px 8px}
+    .card .meta-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+    .card .price{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold-soft);letter-spacing:.06em}
+    .card .cta{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color .3s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
     .card .cta:hover{color:var(--gold-soft)}
+    @media(max-width:560px){
+      .card h3{font-size:16px}
+      .card .sku{font-size:9px;margin-bottom:8px}
+      .card .desc{font-size:12px;-webkit-line-clamp:2}
+      .card .sizes span{font-size:9px;padding:3px 7px}
+      .card .meta-row{flex-direction:column;align-items:flex-start;gap:10px}
+      .card .cta{font-size:9.5px}
+    }
 
-    /* ===== TOAST (copied!) ===== */
-    .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg-soft);border:1px solid var(--gold);color:var(--gold-soft);font-size:12px;letter-spacing:.28em;text-transform:uppercase;padding:14px 28px;z-index:9999;transition:transform .4s cubic-bezier(.22,.97,.52,1.07),opacity .4s;opacity:0;pointer-events:none;backdrop-filter:blur(12px)}
+    /* ===== TOAST ===== */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg-soft);border:1px solid var(--gold);color:var(--gold-soft);font-size:11px;letter-spacing:.28em;text-transform:uppercase;padding:12px 24px;z-index:9999;transition:transform .4s cubic-bezier(.22,.97,.52,1.07),opacity .4s;opacity:0;pointer-events:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);white-space:nowrap}
     .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+    @media(max-width:480px){.toast{font-size:10px;padding:10px 18px;max-width:calc(100vw - 40px);white-space:normal;text-align:center}}
 
     /* ===== MODAL ZOOM ===== */
-    .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+    .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:0}
     .modal-overlay.open{opacity:1;pointer-events:all}
-    .modal-box{position:relative;width:min(92vw,900px);max-height:92vh;display:flex;flex-direction:column;gap:0;transform:scale(.95);transition:transform .35s cubic-bezier(.22,.97,.52,1.07)}
+    .modal-box{position:relative;width:min(96vw,900px);max-height:100dvh;display:flex;flex-direction:column;gap:0;transform:scale(.96);transition:transform .35s cubic-bezier(.22,.97,.52,1.07);overflow-y:auto;overscroll-behavior:contain}
     .modal-overlay.open .modal-box{transform:scale(1)}
-    
-    .modal-img-wrap{position:relative;overflow:hidden;background:#0a0909;border:1px solid var(--line);flex:1;min-height:0;cursor:zoom-in}
+
+    .modal-img-wrap{position:relative;overflow:hidden;background:#0a0909;border:1px solid var(--line);flex:1;min-height:0;cursor:zoom-in;touch-action:none}
     .modal-img-wrap.zoomed{cursor:crosshair}
-    .modal-img-wrap img{width:100%;height:100%;object-fit:contain;max-height:70vh;transition:transform .25s ease;transform-origin:center center;user-select:none;-webkit-user-drag:none;display:block}
+    .modal-img-wrap img{width:100%;height:100%;object-fit:contain;max-height:55vh;transition:transform .2s ease;transform-origin:center center;user-select:none;-webkit-user-drag:none;display:block;-webkit-user-select:none}
+    @media(max-width:600px){.modal-img-wrap img{max-height:45vh}}
+    @media(max-width:380px){.modal-img-wrap img{max-height:38vh}}
 
     /* Zoom controls */
-    .zoom-controls{display:flex;align-items:center;gap:8px;padding:14px 18px;background:var(--bg-soft);border:1px solid var(--line);border-top:none;flex-wrap:wrap;justify-content:space-between}
+    .zoom-controls{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--bg-soft);border:1px solid var(--line);border-top:none;flex-wrap:wrap;justify-content:space-between}
     .zoom-controls .left{display:flex;align-items:center;gap:8px}
-    .zoom-btn{background:transparent;border:1px solid var(--line);color:var(--ink-dim);width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:background .2s,color .2s;flex-shrink:0}
-    .zoom-btn:hover{background:var(--gold-glow);color:var(--gold)}
-    .zoom-label{font-size:11px;letter-spacing:.22em;color:var(--ink-dim);text-transform:uppercase;min-width:44px;text-align:center}
-    .zoom-reset{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);padding:8px 14px;background:transparent;cursor:pointer;transition:background .2s,color .2s}
-    .zoom-reset:hover{background:var(--gold-glow);color:var(--gold)}
+    .zoom-btn{background:transparent;border:1px solid var(--line);color:var(--ink-dim);width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:background .2s,color .2s;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+    .zoom-btn:hover,.zoom-btn:active{background:var(--gold-glow);color:var(--gold)}
+    .zoom-label{font-size:11px;letter-spacing:.22em;color:var(--ink-dim);text-transform:uppercase;min-width:40px;text-align:center}
+    .zoom-reset{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);padding:7px 12px;background:transparent;cursor:pointer;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+    .zoom-reset:hover,.zoom-reset:active{background:var(--gold-glow);color:var(--gold)}
+    .zoom-hint{font-size:10px;color:var(--ink-dim);letter-spacing:.12em}
+    @media(max-width:480px){.zoom-hint{display:none}}
 
-    .modal-info{padding:18px 20px;background:var(--bg-soft);border:1px solid var(--line);border-top:none;display:flex;flex-direction:column;gap:4px}
-    .modal-info-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500}
-    .modal-sku{font-size:10px;letter-spacing:.35em;color:var(--ink-dim);text-transform:uppercase}
-    .modal-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .modal-wpp{display:inline-flex;align-items:center;gap:9px;background:var(--green);color:#fff;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;transition:background .25s,transform .2s;white-space:nowrap}
-    .modal-wpp:hover{background:#1ebe5d;transform:translateY(-1px)}
-    .modal-wpp svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
-    .modal-share-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--line);color:var(--ink-dim);font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 18px;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
-    .modal-share-btn:hover{background:rgba(255,255,255,.05);color:var(--ink)}
-    .modal-share-btn svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+    .modal-info{padding:14px 16px;background:var(--bg-soft);border:1px solid var(--line);border-top:none;display:flex;flex-direction:column;gap:4px}
+    .modal-info-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;line-height:1.2}
+    .modal-sku{font-size:10px;letter-spacing:.35em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
+    .modal-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:2px}
+    .modal-wpp{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:10px 18px;transition:background .25s,transform .2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+    .modal-wpp:hover{background:#1ebe5d}
+    .modal-wpp:active{background:#1aad55;transform:scale(.98)}
+    .modal-wpp svg{width:15px;height:15px;fill:#fff;flex-shrink:0}
+    .modal-share-btn{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--line);color:var(--ink-dim);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;padding:10px 14px;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+    .modal-share-btn:hover,.modal-share-btn:active{background:rgba(255,255,255,.05);color:var(--ink)}
+    .modal-share-btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+    @media(max-width:480px){
+      .modal-info{padding:12px 14px}
+      .modal-title{font-size:17px}
+      .modal-actions{width:100%}
+      .modal-wpp,.modal-share-btn{flex:1;justify-content:center}
+    }
 
     /* Fechar */
-    .modal-close{position:absolute;top:-44px;right:0;background:transparent;border:none;color:var(--ink-dim);font-size:28px;cursor:pointer;transition:color .2s;line-height:1;padding:8px}
-    .modal-close:hover{color:var(--gold)}
+    .modal-close{position:absolute;top:-44px;right:0;background:transparent;border:none;color:var(--ink-dim);font-size:28px;cursor:pointer;transition:color .2s;line-height:1;padding:8px;-webkit-tap-highlight-color:transparent}
+    .modal-close:hover,.modal-close:active{color:var(--gold)}
+    @media(max-width:480px){
+      .modal-close{top:unset;bottom:-50px;right:50%;transform:translateX(50%);background:var(--bg-soft);border:1px solid var(--line);padding:10px 18px;font-size:22px}
+    }
 
     /* Setas de navegação */
-    .modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(14,13,11,.75);border:1px solid var(--line);color:var(--ink-dim);width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;backdrop-filter:blur(8px);transition:background .2s,color .2s;z-index:2;user-select:none}
-    .modal-nav:hover{background:rgba(191,155,48,.2);color:var(--gold)}
-    .modal-nav.prev{left:-56px}
-    .modal-nav.next{right:-56px}
-    @media(max-width:720px){
-      .modal-nav.prev{left:8px}.modal-nav.next{right:8px}
+    .modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(14,13,11,.8);border:1px solid var(--line);color:var(--ink-dim);width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s,color .2s;z-index:2;user-select:none;-webkit-tap-highlight-color:transparent}
+    .modal-nav:hover,.modal-nav:active{background:rgba(191,155,48,.25);color:var(--gold)}
+    .modal-nav.prev{left:-54px}
+    .modal-nav.next{right:-54px}
+    @media(max-width:760px){
+      .modal-nav.prev{left:8px;top:auto;bottom:calc(100% + 56px);transform:none;z-index:3}
+      .modal-nav.next{right:8px;top:auto;bottom:calc(100% + 56px);transform:none;z-index:3}
+    }
+    @media(max-width:480px){
+      .modal-nav{width:38px;height:38px;font-size:18px}
+      .modal-nav.prev{left:6px;bottom:calc(100% + 48px)}
+      .modal-nav.next{right:6px;bottom:calc(100% + 48px)}
     }
 
     /* ===== BANNER WHATSAPP ===== */
-    .whatsapp-banner{max-width:1320px;margin:80px auto 0;padding:0 28px}
-    .whatsapp-card{display:flex;align-items:center;justify-content:space-between;gap:32px;background:var(--bg-soft);border:1px solid var(--line);padding:40px 48px;flex-wrap:wrap}
-    .whatsapp-card .wpp-text h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:30px;margin-bottom:8px}
+    .whatsapp-banner{max-width:1320px;margin:80px auto 0;padding:0 20px}
+    .whatsapp-card{display:flex;align-items:center;justify-content:space-between;gap:28px;background:var(--bg-soft);border:1px solid var(--line);padding:36px 44px;flex-wrap:wrap}
+    .whatsapp-card .wpp-text h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;margin-bottom:8px;line-height:1.25}
     .whatsapp-card .wpp-text h3 em{font-style:italic;color:var(--gold-soft)}
-    .whatsapp-card .wpp-text p{color:var(--ink-dim);font-size:14px;font-weight:300;line-height:1.6}
-    .whatsapp-btn{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:#fff;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:16px 32px;transition:background .3s,transform .2s;white-space:nowrap;text-decoration:none}
+    .whatsapp-card .wpp-text p{color:var(--ink-dim);font-size:13.5px;font-weight:300;line-height:1.65}
+    .whatsapp-btn{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:#fff;font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:15px 28px;transition:background .3s,transform .2s;white-space:nowrap;text-decoration:none;-webkit-tap-highlight-color:transparent}
     .whatsapp-btn:hover{background:#1ebe5d;transform:translateY(-2px);color:#fff}
-    .whatsapp-btn svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
-    @media(max-width:720px){.whatsapp-card{padding:32px 24px;flex-direction:column;align-items:flex-start}.whatsapp-btn{width:100%;justify-content:center}}
+    .whatsapp-btn:active{background:#1aad55;transform:scale(.98)}
+    .whatsapp-btn svg{width:19px;height:19px;fill:#fff;flex-shrink:0}
+    @media(max-width:720px){
+      .whatsapp-card{padding:28px 20px;flex-direction:column;align-items:flex-start;gap:22px}
+      .whatsapp-btn{width:100%;justify-content:center}
+    }
+    @media(max-width:480px){
+      .whatsapp-card .wpp-text h3{font-size:22px}
+      .whatsapp-banner{margin-top:60px}
+    }
 
     /* ===== FOOTER ===== */
-    footer{margin-top:140px;padding:80px 28px 60px;border-top:1px solid var(--line);background:var(--bg-soft)}
-    .foot-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
-    @media(max-width:820px){.foot-inner{grid-template-columns:1fr;gap:36px}}
-    footer h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:21px;margin-bottom:14px}
+    footer{margin-top:120px;padding:72px 20px 52px;border-top:1px solid var(--line);background:var(--bg-soft)}
+    .foot-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px}
+    @media(max-width:820px){.foot-inner{grid-template-columns:1fr 1fr;gap:36px}}
+    @media(max-width:560px){.foot-inner{grid-template-columns:1fr;gap:32px}}
+    footer h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:20px;margin-bottom:12px}
     footer p,footer li{color:var(--ink-dim);font-size:13px;line-height:1.8;font-weight:300}
     footer ul{list-style:none}
-    footer .wpp-link{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:500;transition:opacity .2s}
+    footer .wpp-link{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:500;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
     footer .wpp-link:hover{opacity:.8}
-    footer .wpp-link svg{width:15px;height:15px;fill:var(--green)}
-    .credit{max-width:1320px;margin:50px auto 0;padding-top:30px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.32em;color:var(--ink-dim);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    footer .wpp-link svg{width:15px;height:15px;fill:var(--green);flex-shrink:0}
+    .credit{max-width:1320px;margin:44px auto 0;padding-top:26px;border-top:1px solid var(--line);font-size:10.5px;letter-spacing:.28em;color:var(--ink-dim);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    @media(max-width:480px){
+      footer{margin-top:80px;padding:56px 16px 44px}
+      .credit{font-size:9.5px;letter-spacing:.2em}
+    }
 
     /* ===== REVEAL ANIMATION ===== */
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
     .reveal.in{opacity:1;transform:none}
 
     /* ===== SPLASH ===== */
     #splash{position:fixed;inset:0;z-index:9999;background:#0e0d0b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;pointer-events:all;transition:opacity .7s ease,visibility .7s ease}
     #splash.hide{opacity:0;visibility:hidden;pointer-events:none}
-
-    .splash-ring{position:relative;width:120px;height:120px;margin-bottom:36px}
-    .splash-ring svg{width:120px;height:120px;animation:spin-ring 2s linear infinite}
+    .splash-ring{position:relative;width:100px;height:100px;margin-bottom:32px}
+    .splash-ring svg{width:100px;height:100px;animation:spin-ring 2s linear infinite}
     .splash-ring svg circle{fill:none;stroke:rgba(191,155,48,.18);stroke-width:1.5}
     .splash-ring svg circle.arc{stroke:var(--gold);stroke-dasharray:60 220;stroke-linecap:round;animation:dash-arc 2s ease-in-out infinite}
     @keyframes spin-ring{to{transform:rotate(360deg)}}
     @keyframes dash-arc{0%{stroke-dashoffset:0}50%{stroke-dashoffset:-120}100%{stroke-dashoffset:-280}}
-
-    .splash-logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:38px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);text-align:center;overflow:hidden;white-space:nowrap}
+    .splash-logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(26px,7vw,38px);letter-spacing:.25em;text-transform:uppercase;color:var(--ink);text-align:center;overflow:hidden;white-space:nowrap}
     .splash-logo span{color:var(--gold)}
     .splash-logo .letra{display:inline-block;opacity:0;transform:translateY(14px);animation:letra-in .5s ease forwards}
     @keyframes letra-in{to{opacity:1;transform:none}}
-
-    .splash-sub{font-size:10px;letter-spacing:.55em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;animation:fade-in .6s ease .9s forwards}
+    .splash-sub{font-size:9.5px;letter-spacing:.55em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:0;animation:fade-in .6s ease .9s forwards}
     @keyframes fade-in{to{opacity:1}}
-
-    .splash-bar{width:120px;height:1px;background:rgba(191,155,48,.2);margin-top:36px;overflow:hidden;opacity:0;animation:fade-in .3s ease .6s forwards}
+    .splash-bar{width:100px;height:1px;background:rgba(191,155,48,.2);margin-top:32px;overflow:hidden;opacity:0;animation:fade-in .3s ease .6s forwards}
     .splash-bar-fill{height:100%;width:0;background:var(--gold);animation:bar-fill 1.6s cubic-bezier(.4,0,.2,1) .7s forwards}
     @keyframes bar-fill{to{width:100%}}
+
+    /* ===== UTIL ===== */
+    /* Melhora tap targets em geral */
+    button,a{min-height:0}
+    @media(max-width:860px){
+      button,a.cta,a.whatsapp-btn{min-height:44px}
+    }
   </style>
 </head>
 <body>
-
 
 <!-- SPLASH -->
 <div id="splash">
@@ -226,8 +319,27 @@
         Admin
       </a>
     </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu">&#9776;</button>
   </div>
 </header>
+
+<!-- MOBILE DRAWER OVERLAY -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="fecharDrawer()"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Menu de navegação">
+  <button class="drawer-close" onclick="fecharDrawer()" aria-label="Fechar menu">&#x2715;</button>
+  <nav class="drawer-nav">
+    <a href="#feminino" onclick="fecharDrawer()">Feminino</a>
+    <a href="#masculino" onclick="fecharDrawer()">Masculino</a>
+    <a href="#novos" onclick="fecharDrawer()">Novos Modelos</a>
+    <a href="#contato" onclick="fecharDrawer()">Contato</a>
+  </nav>
+  <button class="drawer-adm" onclick="fecharDrawer();abrirAdminEvt()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+    Painel Admin
+  </button>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -336,7 +448,7 @@
         <button class="zoom-btn" id="zoom-in" aria-label="Aumentar zoom">&#43;</button>
         <button class="zoom-reset" id="zoom-reset">Resetar</button>
       </div>
-      <span style="font-size:11px;color:var(--ink-dim);letter-spacing:.15em">Arraste para mover · Scroll para zoom</span>
+      <span class="zoom-hint">Pinça para zoom · Arraste para mover</span>
     </div>
 
     <div class="modal-info">
@@ -348,7 +460,7 @@
         <div class="modal-actions">
           <button class="modal-share-btn" id="modal-share-btn">
             <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A2.99 2.99 0 0018 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81A2.99 2.99 0 006 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-            Compartilhar link
+            Compartilhar
           </button>
           <a class="modal-wpp" id="modal-wpp-link" href="#" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -365,13 +477,14 @@
    CONFIGURAÇÃO
    ========================================= */
 const WHATSAPP_NUMBER = "5575998728587";
-// Detecta se está rodando com servidor ou direto (file://)
 const IS_SERVER = location.protocol !== 'file:';
-const API_BASE = IS_SERVER ? "" : null; // null = sem API, usa dados embutidos
+const API_BASE = IS_SERVER ? "" : null;
 
-/* Abre o painel admin na porta correta (3000 se estiver no Live Server) */
 function abrirAdmin(e) {
   e.preventDefault();
+  abrirAdminEvt();
+}
+function abrirAdminEvt() {
   const port = location.port;
   if (port === '5500' || port === '5501' || location.protocol === 'file:') {
     window.open('http://localhost:3000/admin/', '_blank');
@@ -388,32 +501,48 @@ function getWhatsAppLink(msg = "") {
 }
 
 /* =========================================
-   LISTA GLOBAL de todos os produtos (carregados da API)
+   DRAWER MOBILE
+   ========================================= */
+function abrirDrawer() {
+  document.getElementById("mobile-drawer").classList.add("open");
+  document.getElementById("drawer-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function fecharDrawer() {
+  document.getElementById("mobile-drawer").classList.remove("open");
+  document.getElementById("drawer-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.getElementById("nav-toggle").addEventListener("click", abrirDrawer);
+
+/* =========================================
+   PRODUTOS GLOBAIS
    ========================================= */
 let allProducts = [];
 
 /* =========================================
    CARD HTML
    ========================================= */
-function card(p, category) {
-  const cat = category || p.categoria || 'produto';
+function card(p) {
+  const cat = p.categoria || 'produto';
   const wppMsg = `Olá! Tenho interesse na peça *${p.nome}* (Ref. ${p.sku}). Poderia me passar mais informações e valores?`;
   const wppLink = getWhatsAppLink(wppMsg);
   const productId = p.id || `${cat}-${p.sku}`;
+  const num = p.n != null ? String(p.n).padStart(2,'0') : p.sku.replace(/\D/g,'').slice(-2).padStart(2,'0') || '—';
 
   return `
   <article class="card reveal" data-product-id="${productId}">
     <div class="frame" onclick="openModal('${productId}')">
-      <span class="index">N° ${p.n != null ? String(p.n).padStart(2,'0') : p.sku.replace(/\D/g,'').slice(-2).padStart(2,'0') || '—'}</span>
+      <span class="index">N° ${num}</span>
       <span class="badge">Com Lycra</span>
       <img src="${p.imagem || p.img}" alt="${p.nome}" loading="lazy" />
       <button class="btn-zoom" onclick="event.stopPropagation();openModal('${productId}')" title="Ver em zoom">
         <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        Zoom
+        <span>Zoom</span>
       </button>
       <button class="btn-share" onclick="event.stopPropagation();shareProduct('${productId}','${p.nome}')" title="Compartilhar">
         <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A2.99 2.99 0 0018 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81A2.99 2.99 0 006 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-        Link
+        <span>Link</span>
       </button>
     </div>
     <div>
@@ -430,25 +559,28 @@ function card(p, category) {
 }
 
 /* =========================================
-   SHARE / LINK
+   SHARE
    ========================================= */
 function shareProduct(productId, nome) {
   const url = `${location.origin}${location.pathname}?produto=${encodeURIComponent(productId)}`;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
+  if (navigator.share) {
+    navigator.share({ title: nome, url }).catch(() => copiarLink(url));
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).then(() => showToast("Link copiado!"));
   } else {
-    const ta = document.createElement("textarea");
-    ta.value = url;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast("Link copiado!");
+    copiarLink(url);
   }
 }
-
+function copiarLink(url) {
+  const ta = document.createElement("textarea");
+  ta.value = url;
+  ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  document.body.removeChild(ta);
+  showToast("Link copiado!");
+}
 function showToast(msg) {
   const t = document.getElementById("toast");
   t.textContent = msg;
@@ -457,11 +589,10 @@ function showToast(msg) {
 }
 
 /* =========================================
-   MODAL ZOOM — reescrito (transform-origin: center center)
+   MODAL ZOOM
    ========================================= */
 let modalCurrentIdx = 0;
 let zoomLevel = 1;
-// panX/panY são offsets em pixels NO ESPAÇO DA IMAGEM (antes do scale)
 let panX = 0, panY = 0;
 let isPanning = false;
 let startPanX = 0, startPanY = 0;
@@ -473,88 +604,62 @@ function openModal(productId) {
   modalCurrentIdx = idx;
   loadModalProduct(idx);
   document.getElementById("modal").classList.add("open");
-  if (allProducts[idx]) registrarView(allProducts[idx].sku);
   document.body.style.overflow = "hidden";
   resetZoom();
 }
-
 function closeModal() {
   document.getElementById("modal").classList.remove("open");
   document.body.style.overflow = "";
   resetZoom();
 }
-
 function loadModalProduct(idx) {
   const p = allProducts[idx];
   if (!p) return;
-
   const img = document.getElementById("modal-img");
   img.src = p.imagem || p.img || '';
   img.alt = p.nome;
-
   document.getElementById("modal-title").textContent = p.nome;
   document.getElementById("modal-sku").textContent = `Ref. ${p.sku}`;
-
   const wppMsg = `Olá! Tenho interesse na peça *${p.nome}* (Ref. ${p.sku}). Poderia me passar mais informações e valores?`;
   document.getElementById("modal-wpp-link").href = getWhatsAppLink(wppMsg);
   document.getElementById("modal-share-btn").onclick = () => shareProduct(p.id, p.nome);
-
   resetZoom();
 }
-
 function resetZoom() {
-  zoomLevel = 1;
-  panX = 0;
-  panY = 0;
+  zoomLevel = 1; panX = 0; panY = 0;
   applyTransform();
 }
-
 function applyTransform() {
   const img = document.getElementById("modal-img");
-  // Com transform-origin:center, translate acontece DEPOIS do scale
-  // Então: primeiro escala no centro, depois translada
   img.style.transform = `scale(${zoomLevel}) translate(${panX}px, ${panY}px)`;
   document.getElementById("zoom-label").textContent = Math.round(zoomLevel * 100) + "%";
   const wrap = document.getElementById("modal-img-wrap");
   wrap.classList.toggle("zoomed", zoomLevel > 1);
   wrap.style.cursor = zoomLevel > 1 ? (isPanning ? "grabbing" : "grab") : "zoom-in";
 }
-
 function clampPan() {
-  // Limita o pan para não sair da área visível
   const wrap = document.getElementById("modal-img-wrap");
   const img  = document.getElementById("modal-img");
-  const ww = wrap.offsetWidth,  wh = wrap.offsetHeight;
-  const iw = img.offsetWidth,   ih = img.offsetHeight;
-  // Máximo deslocamento permitido (em pixels do espaço pré-scale)
+  const ww = wrap.offsetWidth, wh = wrap.offsetHeight;
+  const iw = img.offsetWidth, ih = img.offsetHeight;
   const maxX = Math.max(0, (iw * zoomLevel - ww) / (2 * zoomLevel));
   const maxY = Math.max(0, (ih * zoomLevel - wh) / (2 * zoomLevel));
   panX = Math.max(-maxX, Math.min(maxX, panX));
   panY = Math.max(-maxY, Math.min(maxY, panY));
 }
-
 function changeZoom(delta, clientX, clientY) {
   const wrap = document.getElementById("modal-img-wrap");
-  const img  = document.getElementById("modal-img");
   const rect = wrap.getBoundingClientRect();
-
   const prevZoom = zoomLevel;
   zoomLevel = Math.max(1, Math.min(5, zoomLevel + delta));
-
   if (zoomLevel === 1) {
-    panX = 0;
-    panY = 0;
+    panX = 0; panY = 0;
   } else if (clientX !== undefined && clientY !== undefined) {
-    // Cursor relativo ao centro do wrapper
     const cx = (clientX - rect.left) - rect.width / 2;
     const cy = (clientY - rect.top)  - rect.height / 2;
-    // Ajusta pan para que o ponto sob o cursor não se mova
-    // No espaço pré-scale: ponto = (cx / prevZoom) - panX
-    // Queremos: (cx / newZoom) - newPanX = (cx / prevZoom) - panX
     panX = (cx / prevZoom) - (cx / zoomLevel) + panX;
     panY = (cy / prevZoom) - (cy / zoomLevel) + panY;
   }
-
   clampPan();
   applyTransform();
 }
@@ -562,50 +667,45 @@ function changeZoom(delta, clientX, clientY) {
 document.addEventListener("DOMContentLoaded", () => {
   const imgWrap = document.getElementById("modal-img-wrap");
 
-  /* ── Pan por mouse ── */
+  /* Pan por mouse */
   imgWrap.addEventListener("mousedown", e => {
     if (zoomLevel <= 1) return;
     e.preventDefault();
     isPanning = true;
-    startMouseX = e.clientX;
-    startMouseY = e.clientY;
-    startPanX = panX;
-    startPanY = panY;
+    startMouseX = e.clientX; startMouseY = e.clientY;
+    startPanX = panX; startPanY = panY;
     imgWrap.style.cursor = "grabbing";
   });
-
   window.addEventListener("mousemove", e => {
     if (!isPanning) return;
-    // Deslocamento em pixels de tela → converter para espaço pré-scale
     panX = startPanX + (e.clientX - startMouseX) / zoomLevel;
     panY = startPanY + (e.clientY - startMouseY) / zoomLevel;
-    clampPan();
-    applyTransform();
+    clampPan(); applyTransform();
   });
+  window.addEventListener("mouseup", () => { if (!isPanning) return; isPanning = false; applyTransform(); });
 
-  window.addEventListener("mouseup", () => {
-    if (!isPanning) return;
-    isPanning = false;
-    applyTransform(); // atualiza cursor via applyTransform
-  });
-
-  /* ── Scroll para zoom ── */
+  /* Scroll para zoom */
   imgWrap.addEventListener("wheel", e => {
     e.preventDefault();
     changeZoom(e.deltaY < 0 ? 0.3 : -0.3, e.clientX, e.clientY);
   }, { passive: false });
 
-  /* ── Touch pinch-to-zoom ── */
+  /* Touch — pan single finger quando zoomed */
+  let touchStartX = 0, touchStartY = 0, touchStartPanX = 0, touchStartPanY = 0;
   let lastDist = 0;
-  let lastTouchMidX = 0, lastTouchMidY = 0;
+
   imgWrap.addEventListener("touchstart", e => {
+    if (e.touches.length === 1 && zoomLevel > 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartPanX = panX;
+      touchStartPanY = panY;
+    }
     if (e.touches.length === 2) {
       lastDist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
       );
-      lastTouchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-      lastTouchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
     }
   }, { passive: true });
 
@@ -620,12 +720,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
       changeZoom((dist - lastDist) * 0.012, midX, midY);
       lastDist = dist;
-      lastTouchMidX = midX;
-      lastTouchMidY = midY;
+    } else if (e.touches.length === 1 && zoomLevel > 1) {
+      e.preventDefault();
+      panX = touchStartPanX + (e.touches[0].clientX - touchStartX) / zoomLevel;
+      panY = touchStartPanY + (e.touches[0].clientY - touchStartY) / zoomLevel;
+      clampPan(); applyTransform();
     }
   }, { passive: false });
 
-  /* ── Botões de zoom ── */
+  /* Botões de zoom */
   document.getElementById("zoom-in").addEventListener("click", () => changeZoom(0.5));
   document.getElementById("zoom-out").addEventListener("click", () => changeZoom(-0.5));
   document.getElementById("zoom-reset").addEventListener("click", resetZoom);
@@ -636,7 +739,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === document.getElementById("modal")) closeModal();
   });
 
-  /* Navegação prev/next */
+  /* Prev / Next */
   document.getElementById("modal-prev").addEventListener("click", () => {
     modalCurrentIdx = (modalCurrentIdx - 1 + allProducts.length) % allProducts.length;
     loadModalProduct(modalCurrentIdx);
@@ -646,38 +749,48 @@ document.addEventListener("DOMContentLoaded", () => {
     loadModalProduct(modalCurrentIdx);
   });
 
+  /* Swipe no modal (mobile) */
+  let swipeStartX = 0;
+  document.getElementById("modal").addEventListener("touchstart", e => {
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById("modal").addEventListener("touchend", e => {
+    if (zoomLevel > 1) return;
+    const diff = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) {
+        modalCurrentIdx = (modalCurrentIdx + 1) % allProducts.length;
+      } else {
+        modalCurrentIdx = (modalCurrentIdx - 1 + allProducts.length) % allProducts.length;
+      }
+      loadModalProduct(modalCurrentIdx);
+    }
+  }, { passive: true });
+
   /* Teclado */
   document.addEventListener("keydown", e => {
     if (!document.getElementById("modal").classList.contains("open")) return;
     if (e.key === "Escape") closeModal();
-    if (e.key === "ArrowLeft") {
-      modalCurrentIdx = (modalCurrentIdx - 1 + allProducts.length) % allProducts.length;
-      loadModalProduct(modalCurrentIdx);
-    }
-    if (e.key === "ArrowRight") {
-      modalCurrentIdx = (modalCurrentIdx + 1) % allProducts.length;
-      loadModalProduct(modalCurrentIdx);
-    }
+    if (e.key === "ArrowLeft") { modalCurrentIdx = (modalCurrentIdx - 1 + allProducts.length) % allProducts.length; loadModalProduct(modalCurrentIdx); }
+    if (e.key === "ArrowRight") { modalCurrentIdx = (modalCurrentIdx + 1) % allProducts.length; loadModalProduct(modalCurrentIdx); }
     if (e.key === "+") changeZoom(0.5);
     if (e.key === "-") changeZoom(-0.5);
     if (e.key === "0") resetZoom();
   });
 
-  /* WhatsApp links globais */
+  /* WPP links globais */
   document.getElementById("wpp-banner-btn").href = getWhatsAppLink();
   document.getElementById("wpp-footer-link").href = getWhatsAppLink();
 
-  /* Reveal on scroll helper */
+  /* Reveal on scroll */
   function ativarReveal() {
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.1 });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
     document.querySelectorAll(".reveal:not(.in)").forEach(el => io.observe(el));
   }
 
-  /* Dados estáticos de fallback (quando aberto sem servidor) */
+  /* Dados estáticos fallback */
   const PRODUTOS_FALLBACK = [
     {id:"feminino-AT-001", sku:"AT-001", nome:"Conjunto Soraia", descricao:"Conjunto blazer e shorts em alfaiataria leve, cor chocolate. Caimento estruturado, fivela metálica e modelagem que valoriza a silhueta.", categoria:"feminino", imagem:"images/produto_01.png",  tamanhos:["P","M","G"], preco:"Consulte valores", ativo:true},
     {id:"feminino-AT-J05", sku:"AT-J05", nome:"Calça Lumière", descricao:"Calça jeans cintura alta em lavagem clara, modelagem skinny com lycra para conforto e sustentação.", categoria:"feminino", imagem:"images/produto_05.jpeg", tamanhos:["36","38","40","44","46"], preco:"Consulte valores", ativo:true},
@@ -712,7 +825,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (produtoParam) setTimeout(() => openModal(decodeURIComponent(produtoParam)), 400);
   }
 
-  /* Carrega produtos — tenta API primeiro, cai nos dados embutidos */
   async function carregarCatalogo() {
     if (IS_SERVER) {
       try {
@@ -730,7 +842,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("API indisponível, usando dados embutidos:", e.message);
       }
     }
-    // Fallback: dados embutidos (funciona sem servidor)
     allProducts = PRODUTOS_FALLBACK;
     renderizarProdutos(allProducts);
   }
@@ -742,27 +853,23 @@ document.addEventListener("DOMContentLoaded", () => {
 (function() {
   const nome = "Evidências Modas";
   const el = document.getElementById("splash-logo");
-  // Anima cada letra
   let delay = 0.1;
   for (let i = 0; i < nome.length; i++) {
     const ch = nome[i];
     const span = document.createElement("span");
     span.className = "letra";
-    span.textContent = ch === " " ? " " : ch;
-    if (ch === "M") span.style.color = "var(--gold-soft)"; // destaca inicial do sobrenome
+    span.textContent = ch === " " ? "\u00a0" : ch;
+    if (ch === "M") span.style.color = "var(--gold-soft)";
     span.style.animationDelay = delay + "s";
     el.appendChild(span);
     delay += ch === " " ? 0.05 : 0.06;
   }
-  // Some automaticamente em ~2.6s
   setTimeout(() => {
     document.getElementById("splash").classList.add("hide");
     document.body.style.overflow = "";
   }, 2600);
-  // Trava scroll durante splash
   document.body.style.overflow = "hidden";
 })();
-
 </script>
 </body>
 </html>
